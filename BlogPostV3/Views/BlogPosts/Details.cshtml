@@ -1,0 +1,69 @@
+﻿@model BlogPostV3.Models.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BlogPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contenido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contenido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.publicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.publicacion)
+        </dd>
+        @{
+            if (Model.Comentarios != null)
+            {
+                foreach (BlogPostV3.Models.Comentario comentario in Model.Comentarios)
+                {
+                    <dd>
+                        @comentario.Contenido
+                    </dd><td>
+    @if (User.Identity.Name.Equals(comentario.Autor))
+    {
+        @Html.ActionLink("Edit", "Edit", "Comentarios", new { id = comentario.Id }, new { }) <span>|</span>
+        @Html.ActionLink("Delete", "Delete", "Comentarios", new { id = comentario.Id }) <span>|</span>
+    }
+    @Html.ActionLink("Details", "Details", "Comentarios", new { id = comentario.Id }, new {}) <span>|</span>
+</td>
+                }
+            }
+
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
